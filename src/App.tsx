@@ -7,39 +7,11 @@ import SearchBar from './components/searchbar'
 function App() {
   const [count, setCount] = useState(0)
 
-  return (<>
+  return (
     <div className='App'>
-      {/* <SearchBar /> */}
-
-      <input
-   type="search"
-   placeholder="Search here"
- />
-
-<table>
-  <tr>
-    <th>Country</th>
-    <th>Continent</th>
-  </tr>
-
-{/* {countries.map((country, *index*) => {
-
-<div>
-  <tr>
-    <td>{country.name}</td>
-    <td>{country.continent}</td>
-  </tr>
-</div>
-
-})} */}
-
-</table>
-
-</div>
-
-
-</> )
-
+      <SearchBar />
+    </div>
+)
 }
 
 export default App
