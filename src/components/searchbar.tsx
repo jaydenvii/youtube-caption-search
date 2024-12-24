@@ -18,6 +18,7 @@ const SearchBar = () => {
 
   return (
     <div>
+      <p>a search bar</p> 
       <input
         type="search"
         placeholder="Search here"
@@ -25,18 +26,7 @@ const SearchBar = () => {
         onKeyDown={handleKeyPress}
         value={searchInput}
       />
-      <div>
-        <p>{displayText}</p> 
-        {/* display input */}
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>smth</th>
-            <th>hi</th>
-          </tr>
-        </thead>
-      </table>
+      
     </div>
   );
 };
