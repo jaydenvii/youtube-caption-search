@@ -29,14 +29,7 @@ const SearchBar = () => {
         <p>{displayText}</p> 
         {/* display input */}
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>smth</th>
-            <th>hi</th>
-          </tr>
-        </thead>
-      </table>
+      
     </div>
   );
 };
