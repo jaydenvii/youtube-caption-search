@@ -14,7 +14,7 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="/videos" element={<HomePage />} />
+        <Route path="/videos" element={<VideosPage />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Route>
     )
