@@ -1,35 +1,28 @@
-import React, {useState} from 'react'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const SearchBar = () => {
-  const [searchInput, setSearchInput] = useState("");
-  const [displayText, setDisplayText] = useState("");
+const SearchBar: React.FC = () => {
+  const [input, setInput] = useState<string>("");
+  const navigate = useNavigate();
 
-  const handleChange = (e: any) => {
-    e.preventDefault();
-    setSearchInput(e.target.value);
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      setDisplayText(searchInput);
-      setSearchInput(""); // clear input after enter
+  // Routes the user to the videos page
+  const handleButtonClick = () => {
+    if (input.trim()) {
+      navigate("/videos", { state: { channelUrl: input } });
+    } else {
+      alert("Please paste the link of a YouTube channel");
     }
   };
 
   return (
     <div>
       <input
-        type="search"
-        placeholder="Search here"
-        onChange={handleChange}
-        onKeyDown={handleKeyPress}
-        value={searchInput}
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Enter a YouTube Channel"
       />
-      <div>
-        <p>{displayText}</p> 
-        {/* display input */}
-      </div>
-      
+      <button onClick={handleButtonClick}>Search</button>
     </div>
   );
 };

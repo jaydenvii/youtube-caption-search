@@ -1,7 +1,10 @@
-import React from "react";
+import { useLocation } from "react-router-dom";
 
 const VideosPage = () => {
-  return <div>VideosPage</div>;
+  const location = useLocation();
+  const { channelUrl } = location.state || {};
+
+  return <div>{channelUrl}</div>;
 };
 
 export default VideosPage;
