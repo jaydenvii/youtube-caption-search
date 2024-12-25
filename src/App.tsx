@@ -1,21 +1,26 @@
-import SearchBar from "./components/searchbar";
-import YouTubeVideoList from "./components/getContent";
-import Card from "./components/Card.tsx";
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
+import MainLayout from "./layouts/MainLayout";
+import HomePage from "./pages/HomePage";
+import VideosPage from "./pages/VideosPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
-  return (
-    <div className="App">
-      <Card
-        title="hi"
-        description="yes."
-        // imageUrl="https://please_help_im_dying_ty"
-      >
-        <SearchBar />
-      </Card>
-      <h1>Video List</h1>
-      <YouTubeVideoList />
-    </div>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="/videos" element={<HomePage />} />
+        <Route path="/*" element={<NotFoundPage />} />
+      </Route>
+    )
   );
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
