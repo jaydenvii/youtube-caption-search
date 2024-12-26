@@ -5,6 +5,9 @@ const app = express();
 const port = 5000;
 
 app.use(express.json());
+var cors = require('cors')
+
+app.use(cors()) // Use this after the variable declaration
 
 // Scrapes the IDs of all videos on a YouTube channel
 async function scrapeVideoIds(
