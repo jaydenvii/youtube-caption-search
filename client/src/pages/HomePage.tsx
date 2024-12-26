@@ -1,8 +1,7 @@
-import React from "react";
 import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   return (
     <div className="h-screen grid place-items-center">
       {" "}

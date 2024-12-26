@@ -1,20 +1,20 @@
 import Axios from "axios";
 
 const useVideoIds = () => {
-  const fetchVideoIds = async (channelUrl: string) => {
+  const fetchVideoIds = async (channelUrl: string): Promise<string[]> => {
     try {
       const response = await Axios.get("http://localhost:5000/api/video-ids", {
         params: {
           channelUrl,
         },
       });
-      const videoIds = response.data;
 
-      console.log(videoIds);
+      console.log(response.data);
 
-      return videoIds;
+      return response.data;
     } catch (error) {
       console.error("ERROR FETCHING DATA:", error);
+      return [];
     }
   };
 

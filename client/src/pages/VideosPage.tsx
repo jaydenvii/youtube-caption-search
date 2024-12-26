@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useVideoIds from "../hooks/useVideoIds";
 
-const VideosPage = () => {
+const VideosPage: React.FC = () => {
   const location = useLocation();
   const { channelUrl } = location.state || {};
 
-  const [videoIds, setVideoIds] = useState([]);
+  const [videoIds, setVideoIds] = useState<string[]>([]);
 
   const fetchVideoIds = useVideoIds();
 
