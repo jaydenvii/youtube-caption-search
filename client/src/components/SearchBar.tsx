@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
 
-
 const SearchBar: React.FC = () => {
   const [input, setInput] = useState<string>("");
   const navigate = useNavigate();
@@ -17,7 +16,7 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-<div className="flex items-center">
+    <div className="flex items-center">
       <input
         type="text"
         value={input}
@@ -26,7 +25,7 @@ const SearchBar: React.FC = () => {
         className="border rounded-l px-2 py-1 w-[500px] h-8"
         //  style={{ transition: 'width 0.2s' }}
       />
-      <button 
+      <button
         onClick={handleButtonClick}
         className="bg-purple-400 text-white px-4 py-1 rounded-r"
       >
