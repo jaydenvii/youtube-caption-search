@@ -1,6 +1,6 @@
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useVideoIds from "../hooks/useVideoIds";
-import { useState, useEffect } from "react";
 
 const VideosPage = () => {
   const location = useLocation();
