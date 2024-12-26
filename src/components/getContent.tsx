@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Card from "./Card";
 
 const apiKey: string = "AIzaSyAuJFQwGJwan9eiqoD6UkomfPznQ_ydqVc";
 const channelId: string = "UC_qb9wZ7gi6T2nXZEHDcnTQ";
@@ -100,19 +101,19 @@ const YouTubeVideoList: React.FC = () => {
   }
 
   return (
+    <div className="flex items-center">
     <ul style={{ listStyle: "none", padding: 0 }}>
-      {videos.map((video) => (
-        <li key={video.videoId} style={{ marginBottom: "20px" }}>
-          <h3>{video.title}</h3>
-          <p>Published on: {new Date(video.publishedAt).toLocaleDateString()}</p>
-          <img
-            src={video.thumbnails.default?.url || ""}
-            alt={video.title}
-            style={{ borderRadius: "8px", width: "200px" }}
+      {videos.map((video) => ( 
+        <li key={video.title}>
+          <Card 
+            title={video.title}
+            description={new Date(video.publishedAt).toLocaleDateString()}
+            imageUrl={video.thumbnails.default?.url}
           />
         </li>
       ))}
     </ul>
+    </div>
   );
 };
 

@@ -8,6 +8,7 @@ import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import VideosPage from "./pages/VideosPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import YouTubeVideoList from "./components/getContent";
 
 function App() {
   const router = createBrowserRouter(
@@ -17,10 +18,12 @@ function App() {
         <Route path="/videos" element={<VideosPage />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Route>
+      
     )
   );
 
-  return <RouterProvider router={router} />;
+  return <> <div className="grid grid-cols-4"> <YouTubeVideoList/> </div> <RouterProvider router={router} /> 
+  </>;
 }
 
 export default App;
