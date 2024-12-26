@@ -3,8 +3,15 @@ import puppeteer from "puppeteer";
 
 const app = express();
 const port = 5000;
+const cors = require("cors");
 
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 
 // Scrapes the IDs of all videos on a YouTube channel
 async function scrapeVideoIds(
