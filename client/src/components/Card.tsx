@@ -7,28 +7,30 @@ interface CardProps {
   imageUrl?: string; 
   children?: ReactNode; 
   color? : string;
+  link? : string
+  link_title? : string
 }
 
-const Card: React.FC<CardProps> = ({ title, description, imageUrl, children, color }) => {
+const Card: React.FC<CardProps> = ({ title, description, imageUrl, children, color, link, link_title}) => {
   return (
-    <div className="flex flex-col max-w-sm rounded overflow-hidden shadow-lg">
-      <div className = {color}>
-      {imageUrl && (
-        <div className="w-40 h-30  overflow-hidden">
-          <img 
-            src={imageUrl} 
-            alt={title} 
-            className="w-full h-full object-cover"
-          />
-        </div>
-      )}
-      <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{title}</div>
-        <h1 className="text-black-700 text-base">{description}</h1>
-        <p>{children}</p>
-      </div>
-      </div>
-    </div>
+<div className="max-w-sm rounded overflow-hidden shadow-lg">
+  {imageUrl && (
+    <img 
+      src={imageUrl} 
+      alt={title} 
+      className="w-full"
+    />
+  )}
+  <div className={`px-6 py-4 ${color}`}>
+    <div className="font-bold text-xl mb-2">{title}</div>
+    <p className="text-gray-700 text-base">{description}</p>
+    {children}
+    <a href={link} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+      {link_title}
+    </a>
+  </div>
+</div>
+
   );
 };
 
