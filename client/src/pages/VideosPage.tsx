@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import useVideoIds from "../hooks/useVideoIds";
 import Card from "../components/Card";
 import SearchBar from "../components/SearchBar";
-import Navigation from "../components/NavigationBar";
 
 const VideosPage: React.FC = () => {
   const location = useLocation();

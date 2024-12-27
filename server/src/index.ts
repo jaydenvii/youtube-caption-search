@@ -5,11 +5,16 @@ const app = express();
 const port = 5000;
 
 app.use(express.json());
-var cors = require('cors')
+var cors = require("cors");
 
-app.use(cors()) // Use this after the variable declaration
+app.use(cors());
 
-// Scrapes the IDs of all videos on a YouTube channel
+// Delays code being run
+function delay(time: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+// Scrapes video ids from a YouTube channel
 async function scrapeVideoIds(
   channelUrl: string
 ): Promise<string[] | undefined> {
@@ -20,31 +25,39 @@ async function scrapeVideoIds(
     await page.goto(`${channelUrl}/videos`);
     await page.setViewport({ width: 1280, height: 800 });
 
-    // Scrolls the page
-    await page.evaluate(() => {
-      window.scrollTo(0, document.documentElement.scrollHeight);
-    });
+    let previousHeight = 0;
+    let videoIds: Set<string> = new Set();
 
-    // Wait for page to have videos loaded in
-    await page.waitForFunction(
-      () => {
-        const videoElements = document.querySelectorAll("#video-title");
-        return videoElements.length > 0;
-      },
-      { timeout: 10000 }
-    );
+    while (true) {
+      // Scroll to the bottom
+      await page.evaluate(() => {
+        window.scrollTo(0, document.documentElement.scrollHeight);
+      });
 
-    // Gets the ids of all YouTube videos
-    const videos: string[] = await page.evaluate(() => {
-      const videoElements = Array.from(
-        document.querySelectorAll("#video-title")
+      await delay(2000);
+
+      // Gets the ids of all videos and add to the set
+      const newVideoIds = await page.evaluate(() => {
+        const videoElements = Array.from(
+          document.querySelectorAll("#video-title")
+        );
+        return videoElements
+          .map((el) => el.closest("a")?.getAttribute("href")?.slice(-11))
+          .filter((id): id is string => !!id);
+      });
+
+      newVideoIds.forEach((id) => videoIds.add(id));
+
+      // Check if scrolling has reached the bottom
+      const currentHeight = await page.evaluate(
+        () => document.documentElement.scrollHeight
       );
-      return videoElements
-        .map((el) => el.closest("a")?.getAttribute("href")?.slice(-11))
-        .filter((id): id is string => !!id);
-    });
+      if (currentHeight === previousHeight) break;
 
-    return videos;
+      previousHeight = currentHeight;
+    }
+
+    return Array.from(videoIds);
   } catch (error) {
     console.error("ERROR FETCHING VIDEOS:", error);
     return undefined;
