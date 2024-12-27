@@ -5,7 +5,7 @@ interface SearchBarProps {
   Display?: string; 
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ Display = "www.google.com" }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ Display = "" }) => {
   const [input, setInput] = useState<string>(Display);
   const navigate = useNavigate();
   const location = useLocation();

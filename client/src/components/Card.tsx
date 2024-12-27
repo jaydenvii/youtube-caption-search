@@ -18,7 +18,7 @@ const Card: React.FC<CardProps> = ({ title, description, imageUrl, children, col
     <img 
       src={imageUrl} 
       alt={title} 
-      className="w-full"
+      className="w-full h-40 object-cover" // Set a specific height and use object-cover
     />
   )}
   <div className={`px-6 py-4 ${color}`}>

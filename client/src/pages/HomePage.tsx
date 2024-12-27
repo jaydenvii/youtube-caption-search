@@ -1,9 +1,11 @@
 import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
+// import Navigation from "../components/NavigationBar";
 
 const HomePage: React.FC = () => {
   return (
     <div className="h-screen grid place-items-center">
+      {/* <Navigation></Navigation> */}
       <Card
         title=""
         description=""
