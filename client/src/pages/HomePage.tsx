@@ -4,13 +4,13 @@ import Card from "../components/Card";
 
 const HomePage: React.FC = () => {
   return (
-    <div className="h-screen grid place-items-center">
+    <div className="h-screen grid place-items-center static">
       {/* <Navigation></Navigation> */}
       <Card
         title=""
         description=""
         color="bg-gray-100"
-        children={<SearchBar/>}
+        children={<><SearchBar/> <SearchBar/></>}
       />
     </div>
   );

@@ -29,22 +29,22 @@ const useVideoList = () => {
   return videoIds;
 };
 
-async function getVideoTitle(videoId:string) {
-  const url = `https://www.youtube.com/watch?v=${videoId}`;
-  try {
-    const response = await fetch(url);
-    const html = await response.text();
-    const titleMatch = html.match(/<title>(.*?)<\/title>/);
-    if (titleMatch && titleMatch[1]) {
-      // Remove " - YouTube" from the end of the title
-      return titleMatch[1].replace(' - YouTube', '').trim();
-    }
-    return "";
-  } catch (error) {
-    console.error("Error fetching video title:", error);
-    return "";
-  }
-}
+// async function getVideoTitle(videoId:string) {
+//   const url = `https://www.youtube.com/watch?v=${videoId}`;
+//   try {
+//     const response = await fetch(url);
+//     const html = await response.text();
+//     const titleMatch = html.match(/<title>(.*?)<\/title>/);
+//     if (titleMatch && titleMatch[1]) {
+//       // Remove " - YouTube" from the end of the title
+//       return titleMatch[1].replace(' - YouTube', '').trim();
+//     }
+//     return "";
+//   } catch (error) {
+//     console.error("Error fetching video title:", error);
+//     return "";
+//   }
+// }
 
 
 
@@ -56,7 +56,7 @@ const VideosPage: React.FC = () => {
 
   return (
     <>
-    <div className="hgrid place-items-center">
+    <div className="hgrid place-items-center fixed top-0 left-0 right-0  ">
       <Card
         title=""
         description=""
@@ -65,12 +65,12 @@ const VideosPage: React.FC = () => {
       />
     </div>
 
-    <div className="flex flex-wrap -mx-2">
+    <div className="flex flex-wrap -mx-1">
   {videoIds.map((video, index) => (
     
     <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
       <Card 
-        title={`${getVideoTitle(video)}`}
+      title = ""
         description=""
         imageUrl={`https://img.youtube.com/vi/${video}/0.jpg`}
         color="bg-gray-100"

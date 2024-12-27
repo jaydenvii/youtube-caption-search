@@ -15,7 +15,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ Display = "" }) => {
     if (input.trim()) {
       if (location.pathname === "/videos") {
         // If already on VideosPage, update the state without navigation
-        navigate("/", { state: { channelUrl: input }, replace: true });
+        navigate("/videos", { state: { channelUrl: input }, replace: true });
       } else {
         // If on another page, navigate to VideosPage
         navigate("/videos", { state: { channelUrl: input } });
@@ -31,15 +31,15 @@ const SearchBar: React.FC<SearchBarProps> = ({ Display = "" }) => {
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="border rounded-l px-2 py-1 w-[500px] h-8"
+        className="border rounded-l px-2 py-1 w-[700px] h-8"
         placeholder="Enter a YouTube channel URL"
       />
-      <button
+      {/* <button
         type="submit"
         className="bg-purple-400 text-white px-4 py-1 rounded-r"
       >
         Search
-      </button>
+      </button> */}
     </form>
   );
 };
