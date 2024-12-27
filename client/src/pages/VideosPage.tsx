@@ -27,18 +27,6 @@ const VideosPage: React.FC = () => {
     fetchData();
   }, [channelUrl]);
 
-  // const fetchData = async () => {
-  //   try {
-  //     const videos = await fetchVideoIds(channelUrl);
-  //     setVideoIds(videos);
-  //     console.log("VideosPage:", videos);
-  //   } catch (error) {
-  //     console.error("ERROR FETCHING VIDEO IDS:", error);
-  //   }
-  // };
-
-  // fetchData();
-
   return (
     <>
       <div className="hgrid place-items-center fixed top-0 left-0 right-0  ">

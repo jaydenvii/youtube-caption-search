@@ -1,22 +1,24 @@
+import { useCallback } from "react";
 import Axios from "axios";
 
 const useVideoIds = () => {
-  const fetchVideoIds = async (channelUrl: string): Promise<string[]> => {
-    try {
-      const response = await Axios.get("http://localhost:5000/api/video-ids", {
-        params: {
-          channelUrl,
-        },
-      });
-
-      // console.log("useVideoIds:", response.data);
-
-      return response.data;
-    } catch (error) {
-      console.error("ERROR FETCHING DATA:", error);
-      return [];
-    }
-  };
+  const fetchVideoIds = useCallback(
+    async (channelUrl: string): Promise<string[]> => {
+      try {
+        const response = await Axios.get(
+          "http://localhost:5000/api/video-ids",
+          {
+            params: { channelUrl },
+          }
+        );
+        return response.data;
+      } catch (error) {
+        console.error("ERROR FETCHING DATA:", error);
+        return [];
+      }
+    },
+    []
+  );
 
   return fetchVideoIds;
 };
