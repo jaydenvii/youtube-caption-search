@@ -1,5 +1,6 @@
 import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
+import useVideoIds from "../hooks/useVideoIds";
 // import Navigation from "../components/NavigationBar";
 
 const HomePage: React.FC = () => {
@@ -10,7 +11,7 @@ const HomePage: React.FC = () => {
         title=""
         description=""
         color="bg-gray-100"
-        children={<><SearchBar/> <SearchBar/></>}
+        children={<SearchBar/>}
       />
     </div>
   );

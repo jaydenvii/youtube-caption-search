@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import puppeteer from "puppeteer";
+import { YoutubeTranscript } from "youtube-transcript";
 
 const app = express();
 const port = 5000;
@@ -8,6 +9,18 @@ app.use(express.json());
 var cors = require("cors");
 
 app.use(cors());
+
+
+async function getTranscript(videoId: string): Promise<any> {
+  try {
+    const transcript = await YoutubeTranscript.fetchTranscript(videoId);
+    console.log(transcript);
+    return transcript;
+  } catch (error) {
+    console.error("there was an error: ", error);
+    return null;
+  }
+}
 
 // Delays code being run
 function delay(time: number): Promise<void> {
