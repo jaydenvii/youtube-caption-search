@@ -34,12 +34,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ Display = "" }) => {
         className="border rounded-l px-2 py-1 w-[700px] h-8"
         placeholder="Enter a YouTube channel URL"
       />
-      {/* <button
+      <button
         type="submit"
         className="bg-purple-400 text-white px-4 py-1 rounded-r"
       >
         Search
-      </button> */}
+      </button>
     </form>
   );
 };

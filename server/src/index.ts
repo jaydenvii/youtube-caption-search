@@ -11,17 +11,6 @@ var cors = require("cors");
 app.use(cors());
 
 
-async function getTranscript(videoId: string): Promise<any> {
-  try {
-    const transcript = await YoutubeTranscript.fetchTranscript(videoId);
-    console.log(transcript);
-    return transcript;
-  } catch (error) {
-    console.error("there was an error: ", error);
-    return null;
-  }
-}
-
 // Delays code being run
 function delay(time: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, time));

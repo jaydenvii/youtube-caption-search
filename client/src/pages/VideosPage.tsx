@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useVideoIds from "../hooks/useVideoIds";
-import useFetchTranscript from "../hooks/useVideoTranscript"; // Import the custom hook
+import useVideoTranscript from "../hooks/useVideoTranscript"; // Correct import
 import Card from "../components/Card";
 import SearchBar from "../components/SearchBar";
 
@@ -10,9 +10,9 @@ const VideosPage: React.FC = () => {
   const { channelUrl } = location.state || {};
 
   const [videoIds, setVideoIds] = useState<string[]>([]);
-  const [transcripts, setTranscripts] = useState<{ [key: string]: string | null }>({}); // Store transcripts by video ID
+  const [transcripts, setTranscripts] = useState<{ [key: string]: string | null }>({});
   const fetchVideoIds = useVideoIds();
-  const { fetchTranscript } = useFetchTranscript(); // Use the fetchTranscript function
+  const fetchTranscript = useVideoTranscript(); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,13 +26,16 @@ const VideosPage: React.FC = () => {
     };
 
     fetchData();
-  }, [channelUrl]);
+  }, [channelUrl, fetchVideoIds]);
 
   const handleFetchTranscript = async (videoId: string) => {
-    // Check if transcript is already fetched
-    if (!transcripts[videoId]) {
-      const transcript = await fetchTranscript(videoId); // Fetch transcript for the specific video ID
-      setTranscripts((prev) => ({ ...prev, [videoId]: transcript })); // Store it in state
+    try {
+      if (!transcripts[videoId]) {
+        const transcript = await fetchTranscript(videoId);
+        setTranscripts((prev) => ({ ...prev, [videoId]: transcript }));
+      }
+    } catch (error) {
+      console.error("Error fetching transcript:", error);
     }
   };
 
