@@ -88,9 +88,11 @@ app.get("/api/video-ids", async (req: Request, res: Response) => {
 
 app.get("/api/video-transcript", async (req, res) => {
   const videoId: string = req.query.videoId as string;
+  console.log("fetching transcript ");
 
   try {
     const transcript = await YoutubeTranscript.fetchTranscript(videoId);
+    console.log("transcript", transcript);  
     res.json(transcript);
   } catch (error) {
     console.error("ERROR CALLING api/video-transcript", error);
