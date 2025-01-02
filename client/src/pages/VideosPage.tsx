@@ -10,7 +10,7 @@ const VideosPage: React.FC = () => {
 
   const [videoIds, setVideoIds] = useState<string[]>([]);
 
-  const fetchVideoIds = useVideoIds();
+  const { fetchVideoIds, fetchTranscript } = useVideoIds();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +25,20 @@ const VideosPage: React.FC = () => {
 
     fetchData();
   }, [channelUrl]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const videoId = "dQw4w9WgXcQ";
+  //     try {
+  //       const transcript = await fetchTranscript(videoId);
+  //       console.log("Transcript for video ID:", videoId, transcript);
+  //     } catch (error) {
+  //       console.error("Error fetching transcript:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [fetchTranscript]);
 
   return (
     <>

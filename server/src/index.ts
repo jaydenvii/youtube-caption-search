@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import puppeteer from "puppeteer";
+import { YoutubeTranscript } from "youtube-transcript";
 
 const app = express();
 const port = 5000;
@@ -82,6 +83,18 @@ app.get("/api/video-ids", async (req: Request, res: Response) => {
   } catch (error) {
     console.error("ERROR CALLING api/video-ids", error);
     res.status(500).send("ERROR CALLING api/video-ids");
+  }
+});
+
+app.get("/api/video-transcript", async (req, res) => {
+  const videoId: string = req.query.videoId as string;
+
+  try {
+    const transcript = await YoutubeTranscript.fetchTranscript(videoId);
+    res.json(transcript);
+  } catch (error) {
+    console.error("ERROR CALLING api/video-transcript", error);
+    res.status(500).send("ERROR CALLING api/video-transcript");
   }
 });
 
