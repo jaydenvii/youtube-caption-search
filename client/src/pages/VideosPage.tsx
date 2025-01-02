@@ -40,9 +40,9 @@ const VideosPage: React.FC = () => {
       </div>
 
       <div className="flex flex-wrap -mx-1">
-        {transcriptCues.map((cue) => (
+        {transcriptCues.map((cue, index) => (
           <div
-            key={cue.videoId}
+            key={`${cue.videoId}-${index}`}
             className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4"
           >
             <Card
