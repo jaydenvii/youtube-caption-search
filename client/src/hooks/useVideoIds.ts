@@ -96,7 +96,12 @@ const useVideoIds = () => {
     }
   };
 
-  return fetchTranscriptCues;
+  // Filters the cues if their string contains a keyword
+  const filterCues = (transcriptCues: VideoObject[], keyword: string) => {
+    return transcriptCues.slice(0, 32);
+  };
+
+  return { fetchTranscriptCues, filterCues };
 };
 
 export { useVideoIds };

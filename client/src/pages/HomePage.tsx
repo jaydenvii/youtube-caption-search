@@ -10,7 +10,7 @@ const HomePage: React.FC = () => {
         title=""
         description=""
         color="bg-gray-100"
-        children={<><SearchBar/> <SearchBar/></>}
+        children={<SearchBar />}
       />
     </div>
   );
