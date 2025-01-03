@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const ChannelField: React.FC = () => {
+const ChannelForm: React.FC = () => {
   const navigate = useNavigate();
 
   const [channelUrl, setChannelUrl] = useState<string>("");
@@ -38,4 +38,4 @@ const ChannelField: React.FC = () => {
   );
 };
 
-export default ChannelField;
+export default ChannelForm;

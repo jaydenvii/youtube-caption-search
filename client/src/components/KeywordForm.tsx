@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 
-interface KeywordFieldProps {
-  onSubmit: (value: string) => void;
+interface KeywordFormProps {
+  onSubmit: (keyword: string, cardLimit: number) => void;
 }
 
-const KeywordField: React.FC<KeywordFieldProps> = ({ onSubmit }) => {
-  const [keyword, setKeyword] = useState("");
+const KeywordForm: React.FC<KeywordFormProps> = ({ onSubmit }) => {
+  const [keyword, setKeyword] = useState<string>("");
+  const [cardLimit, setCardLimit] = useState<number>(24);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(keyword);
+    onSubmit(keyword, cardLimit);
     setKeyword("");
   };
 
@@ -20,6 +21,15 @@ const KeywordField: React.FC<KeywordFieldProps> = ({ onSubmit }) => {
           type="text"
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
+          className="border rounded px-2 py-1 w-[20vw] h-8"
+          placeholder="Enter a keyword"
+        />
+        <input
+          type="number"
+          value={cardLimit}
+          onChange={(e) =>
+            setCardLimit(e.target.value === "" ? 24 : parseInt(e.target.value))
+          }
           className="border rounded px-2 py-1 w-[20vw] h-8"
           placeholder="Enter a keyword"
         />
@@ -34,4 +44,4 @@ const KeywordField: React.FC<KeywordFieldProps> = ({ onSubmit }) => {
   );
 };
 
-export default KeywordField;
+export default KeywordForm;

@@ -116,8 +116,12 @@ const useVideoIds = () => {
     }
   };
 
-  // Filters the cues if their string contains a keyword, capped at 24 cues
-  const filterCues = (transcriptCues: VideoObject[], keyword: string) => {
+  // Filters the cues if their string contains a keyword, capped at cardLimit cues
+  const filterCues = (
+    transcriptCues: VideoObject[],
+    keyword: string,
+    cardLimit: number
+  ) => {
     const filtered: VideoObject[] = [];
     const lowerKeyword = keyword.toLowerCase();
 
@@ -125,7 +129,7 @@ const useVideoIds = () => {
       if (cue.cueString.toLowerCase().includes(lowerKeyword)) {
         filtered.push(cue);
       }
-      if (filtered.length >= 24) {
+      if (filtered.length >= cardLimit) {
         break;
       }
     }

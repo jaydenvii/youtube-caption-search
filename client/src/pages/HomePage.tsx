@@ -1,4 +1,4 @@
-import ChannelField from "../components/ChannelField";
+import ChannelForm from "../components/ChannelForm";
 import Header from "../components/Header";
 
 const HomePage: React.FC = () => {
@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
         Paste the link of a YouTube channel and search for keywords in its
         captions!
       </p>
-      <ChannelField />
+      <ChannelForm />
     </>
   );
 };

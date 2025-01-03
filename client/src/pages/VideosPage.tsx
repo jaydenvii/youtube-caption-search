@@ -4,7 +4,7 @@ import { useVideoIds } from "../hooks/useVideoIds";
 import { VideoObject } from "../hooks/useVideoIds";
 import Header from "../components/Header";
 import Spinner from "../components/Spinner";
-import KeywordField from "../components/KeywordField";
+import KeywordForm from "../components/KeywordForm";
 import CueGrid from "../components/CueGrid";
 
 const VideosPage: React.FC = () => {
@@ -19,6 +19,7 @@ const VideosPage: React.FC = () => {
 
   // Keyword data
   const [keyword, setKeyword] = useState("");
+  const [cardLimit, setCardLimit] = useState(24);
 
   // Fetches cues
   useEffect(() => {
@@ -30,17 +31,18 @@ const VideosPage: React.FC = () => {
     fetchData();
   }, [channelUrl]);
 
-  // Filters cues every time there is a new keyword
+  // Filters cues every time there is a new keyword or cardLimit
   useEffect(() => {
     if (keyword) {
-      const filteredResults = filterCues(transcriptCues, keyword);
+      const filteredResults = filterCues(transcriptCues, keyword, cardLimit);
       setFilteredCues(filteredResults);
     }
-  }, [keyword]);
+  }, [keyword, cardLimit]);
 
-  // Handles when the user submits a new keyword
-  const handleKeywordSubmit = (keyword: string) => {
+  // Handles when the user submits a new keyword or cardLimit
+  const handleKeywordSubmit = (keyword: string, cardLimit: number) => {
     setKeyword(keyword);
+    setCardLimit(cardLimit);
   };
 
   return (
@@ -55,12 +57,14 @@ const VideosPage: React.FC = () => {
             </a>{" "}
             have been loaded! Fill out the form:
           </p>
-          <KeywordField onSubmit={handleKeywordSubmit} />
+          <KeywordForm onSubmit={handleKeywordSubmit} />
 
-          {keyword ? (
+          {filteredCues.length !== 0 ? (
             <CueGrid filteredCues={filteredCues} keyword={keyword} />
           ) : (
-            <></>
+            <p className="text-center pt-16">
+              No videos with keyword "{keyword}" found
+            </p>
           )}
         </>
       ) : (
