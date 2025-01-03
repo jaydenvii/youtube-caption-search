@@ -36,42 +36,54 @@ const VideosPage: React.FC = () => {
     }
   }, [keyword]);
 
+  // Handles when the user submits a new keyword
   const handleKeywordSubmit = (keyword: string) => {
     setKeyword(keyword);
   };
 
   return (
     <>
-      <KeywordField onSubmit={handleKeywordSubmit} />
+      {transcriptCues.length > 0 ? (
+        <>
+          <KeywordField onSubmit={handleKeywordSubmit} />
 
-      {keyword ? (
-        <div className="flex flex-wrap -mx-1">
-          {filteredCues.map((cue, index) => (
-            <div
-              key={`${cue.videoId}-${index}`}
-              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4"
-            >
-              <Card
-                title={
-                  <a
-                    href={`https://www.youtube.com/watch?v=${cue.videoId}&t=${cue.timeStamp}s`}
-                    target="_blank"
-                    className="text-blue-500 hover:underline"
-                  >
-                    {cue.title || "Loading title..."}
-                  </a>
-                }
-                description={`${cue.cueString}` || "Caption not found"}
-                keyword={keyword}
-                thumbnailUrl={`https://img.youtube.com/vi/${cue.videoId}/0.jpg`}
-                color="bg-gray-100"
-              />
+          {keyword ? (
+            <div className="flex flex-wrap -mx-1">
+              {filteredCues.map((cue, index) => (
+                <div
+                  key={`${cue.videoId}-${index}`}
+                  className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4"
+                >
+                  <Card
+                    title={
+                      <a
+                        href={`https://www.youtube.com/watch?v=${cue.videoId}&t=${cue.timeStamp}s`}
+                        target="_blank"
+                        className="text-blue-500 hover:underline"
+                      >
+                        {cue.title || "Loading title..."}
+                      </a>
+                    }
+                    description={`${cue.cueString}` || "Caption not found"}
+                    keyword={keyword}
+                    thumbnailUrl={`https://img.youtube.com/vi/${cue.videoId}/0.jpg`}
+                    color="bg-gray-100"
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          ) : (
+            <div className="text-center">
+              <p>Enter a keyword</p>
+            </div>
+          )}
+        </>
       ) : (
         <div className="text-center">
-          <p>Enter a keyword</p>
+          <p>
+            Loading videos from{" "}
+            {channelUrl.replace("https://www.youtube.com/", "")}
+          </p>
         </div>
       )}
     </>
