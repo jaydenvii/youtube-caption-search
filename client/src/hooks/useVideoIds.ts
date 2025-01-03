@@ -119,8 +119,10 @@ const useVideoIds = () => {
   // Filters the cues if their string contains a keyword, capped at 24 cues
   const filterCues = (transcriptCues: VideoObject[], keyword: string) => {
     const filtered: VideoObject[] = [];
+    const lowerKeyword = keyword.toLowerCase();
+
     for (const cue of transcriptCues) {
-      if (cue.cueString.includes(keyword)) {
+      if (cue.cueString.toLowerCase().includes(lowerKeyword)) {
         filtered.push(cue);
       }
       if (filtered.length >= 24) {
