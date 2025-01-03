@@ -42,15 +42,7 @@ const VideosPage: React.FC = () => {
 
   return (
     <>
-      <div className="hgrid place-items-center fixed top-0 left-0 right-0">
-        <Card
-          title=""
-          description=""
-          keyword=""
-          color="bg-gray-100"
-          children={<KeywordField onSubmit={handleKeywordSubmit} />}
-        />
-      </div>
+      <KeywordField onSubmit={handleKeywordSubmit} />
 
       {keyword ? (
         <div className="flex flex-wrap -mx-1">
