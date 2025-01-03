@@ -18,21 +18,23 @@ const ChannelField: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center">
-      <input
-        type="text"
-        value={channelUrl}
-        onChange={(e) => setChannelUrl(e.target.value)}
-        className="border rounded-l px-2 py-1 w-[700px] h-8"
-        placeholder="https://www.youtube.com/@..."
-      />
-      <button
-        type="submit"
-        className="bg-purple-400 text-white px-4 py-1 rounded-r"
-      >
-        Search
-      </button>
-    </form>
+    <div className="flex justify-center">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={channelUrl}
+          onChange={(e) => setChannelUrl(e.target.value)}
+          className="border rounded px-2 py-1 w-[50vw] h-8"
+          placeholder="https://www.youtube.com/@..."
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-1 rounded"
+        >
+          Search
+        </button>
+      </form>
+    </div>
   );
 };
 
