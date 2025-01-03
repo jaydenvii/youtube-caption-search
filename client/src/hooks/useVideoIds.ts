@@ -34,6 +34,20 @@ const useVideoIds = () => {
     []
   );
 
+  // Fetchs the title of a specific YouTube video
+  const fetchTitle = async (videoId: string): Promise<string> => {
+    try {
+      const response = await fetch(
+        `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
+      );
+      const data = await response.json();
+      return data.title || "Title not found";
+    } catch (error) {
+      console.error(`ERROR FETCHING TITLE FOR: ${videoId}:`, error);
+      return "Title not found";
+    }
+  };
+
   // Fetches the transcript of a specific YouTube video
   const fetchTranscript = useCallback(
     async (videoId: string): Promise<transcriptElement[]> => {
@@ -110,7 +124,7 @@ const useVideoIds = () => {
     return filtered;
   };
 
-  return { fetchTranscriptCues, filterCues };
+  return { fetchTitle, fetchTranscriptCues, filterCues };
 };
 
 export { useVideoIds };

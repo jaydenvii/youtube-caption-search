@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import { useVideoIds } from "../hooks/useVideoIds";
 import { VideoObject } from "../hooks/useVideoIds";
 import Card from "../components/Card";
-import SearchBar from "../components/SearchBar";
 import KeywordField from "../components/KeywordField";
 
 const VideosPage: React.FC = () => {
@@ -13,8 +12,9 @@ const VideosPage: React.FC = () => {
 
   const [transcriptCues, setTranscriptCues] = useState<VideoObject[]>([]);
   const [filteredCues, setFilteredCues] = useState<VideoObject[]>([]);
+  const [videoTitles, setVideoTitles] = useState<Record<string, string>>({});
 
-  const { fetchTranscriptCues, filterCues } = useVideoIds();
+  const { fetchTitle, fetchTranscriptCues, filterCues } = useVideoIds();
 
   // Keyword data
   const [keyword, setKeyword] = useState("");
@@ -34,6 +34,20 @@ const VideosPage: React.FC = () => {
     if (keyword) {
       const filteredResults = filterCues(transcriptCues, keyword);
       setFilteredCues(filteredResults);
+
+      // Fetch titles for the filtered videos
+      const fetchTitles = async () => {
+        const descriptions: Record<string, string> = {};
+        await Promise.all(
+          filteredResults.map(async (cue) => {
+            const title = await fetchTitle(cue.videoId);
+            descriptions[cue.videoId] = title;
+          })
+        );
+        setVideoTitles(descriptions);
+      };
+
+      fetchTitles();
     }
   }, [keyword]);
 
@@ -60,13 +74,18 @@ const VideosPage: React.FC = () => {
               className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4"
             >
               <Card
-                title={`${cue.cueString}` || "No transcript available"}
-                description=""
+                title={
+                  <a
+                    href={`https://www.youtube.com/watch?v=${cue.videoId}&t=${cue.timeStamp}s`}
+                    target="_blank"
+                    className="text-blue-500 hover:underline"
+                  >
+                    {videoTitles[cue.videoId] || "Loading title..."}
+                  </a>
+                }
+                description={`${cue.cueString}` || "Caption not found"}
                 imageUrl={`https://img.youtube.com/vi/${cue.videoId}/0.jpg`}
-                // imageUrl={`https://www.youtube.com/embed/${cue.videoId}?autohide=1&modestbranding=1&showinfo=0&rel=0`}
                 color="bg-gray-100"
-                link={`https://www.youtube.com/watch?v=${cue.videoId}`}
-                link_title="VID NAME"
               />
             </div>
           ))}
