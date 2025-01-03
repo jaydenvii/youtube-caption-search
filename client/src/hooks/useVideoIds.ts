@@ -96,10 +96,18 @@ const useVideoIds = () => {
     }
   };
 
-  // Filters the cues if their string contains a keyword
+  // Filters the cues if their string contains a keyword, capped at 24 cues
   const filterCues = (transcriptCues: VideoObject[], keyword: string) => {
-    // return transcriptCues.slice(0, 32);
-    return transcriptCues.filter((cue) => cue.cueString.includes(keyword));
+    const filtered: VideoObject[] = [];
+    for (const cue of transcriptCues) {
+      if (cue.cueString.includes(keyword)) {
+        filtered.push(cue);
+      }
+      if (filtered.length >= 24) {
+        break;
+      }
+    }
+    return filtered;
   };
 
   return { fetchTranscriptCues, filterCues };

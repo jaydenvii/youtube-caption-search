@@ -63,6 +63,7 @@ const VideosPage: React.FC = () => {
                 title={`${cue.cueString}` || "No transcript available"}
                 description=""
                 imageUrl={`https://img.youtube.com/vi/${cue.videoId}/0.jpg`}
+                // imageUrl={`https://www.youtube.com/embed/${cue.videoId}?autohide=1&modestbranding=1&showinfo=0&rel=0`}
                 color="bg-gray-100"
                 link={`https://www.youtube.com/watch?v=${cue.videoId}`}
                 link_title="VID NAME"
