@@ -11,14 +11,14 @@ var cors = require("cors");
 app.use(cors());
 
 // Delays code being run
-function delay(time: number): Promise<void> {
+const delay = (time: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, time));
-}
+};
 
 // Scrapes video ids from a YouTube channel
-async function scrapeVideoIds(
+const scrapeVideoIds = async (
   channelUrl: string
-): Promise<string[] | undefined> {
+): Promise<string[] | undefined> => {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
@@ -67,7 +67,7 @@ async function scrapeVideoIds(
       await browser.close();
     }
   }
-}
+};
 
 app.get("/api/video-ids", async (req: Request, res: Response) => {
   try {

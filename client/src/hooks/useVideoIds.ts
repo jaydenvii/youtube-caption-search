@@ -28,7 +28,7 @@ const useVideoIds = () => {
         );
         return response.data;
       } catch (error) {
-        console.error("ERROR FETCHING DATA:", error);
+        console.error("ERROR FETCHING VIDEO IDS:", error);
         return [];
       }
     },
@@ -132,7 +132,7 @@ const useVideoIds = () => {
     return filtered;
   };
 
-  return { fetchTitle, fetchTranscriptCues, filterCues };
+  return { fetchTranscriptCues, filterCues };
 };
 
 export { useVideoIds };
