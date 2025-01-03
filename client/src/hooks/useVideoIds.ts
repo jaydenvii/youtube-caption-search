@@ -104,7 +104,7 @@ const useVideoIds = () => {
             videoId,
             title,
             cueString: item.text,
-            timeStamp: item.offset,
+            timeStamp: Math.floor(item.offset),
           });
         });
       }

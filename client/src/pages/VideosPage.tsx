@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useVideoIds } from "../hooks/useVideoIds";
 import { VideoObject } from "../hooks/useVideoIds";
-import Card from "../components/Card";
+import Header from "../components/Header";
+import Spinner from "../components/Spinner";
 import KeywordField from "../components/KeywordField";
+import CueGrid from "../components/CueGrid";
 
 const VideosPage: React.FC = () => {
   // Video data
@@ -43,46 +45,33 @@ const VideosPage: React.FC = () => {
 
   return (
     <>
+      <Header />
       {transcriptCues.length > 0 ? (
         <>
+          <p className="text-center">
+            Videos from{" "}
+            <a href={channelUrl} className="text-blue-500 hover:underline">
+              {channelUrl.replace("https://www.youtube.com/", "")}
+            </a>{" "}
+            have been loaded! Fill out the form:
+          </p>
           <KeywordField onSubmit={handleKeywordSubmit} />
 
           {keyword ? (
-            <div className="flex flex-wrap -mx-1">
-              {filteredCues.map((cue, index) => (
-                <div
-                  key={`${cue.videoId}-${index}`}
-                  className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4"
-                >
-                  <Card
-                    title={
-                      <a
-                        href={`https://www.youtube.com/watch?v=${cue.videoId}&t=${cue.timeStamp}s`}
-                        target="_blank"
-                        className="text-blue-500 hover:underline"
-                      >
-                        {cue.title || "Loading title..."}
-                      </a>
-                    }
-                    description={`${cue.cueString}` || "Caption not found"}
-                    keyword={keyword}
-                    thumbnailUrl={`https://img.youtube.com/vi/${cue.videoId}/0.jpg`}
-                    color="bg-gray-100"
-                  />
-                </div>
-              ))}
-            </div>
+            <CueGrid filteredCues={filteredCues} keyword={keyword} />
           ) : (
-            <div className="text-center">
-              <p>Enter a keyword</p>
-            </div>
+            <></>
           )}
         </>
       ) : (
         <div className="text-center">
-          <p>
+          <Spinner loading={transcriptCues.length === 0} />
+          <p className="mt-[-5rem] text-lg">
             Loading videos from{" "}
-            {channelUrl.replace("https://www.youtube.com/", "")}
+            <a href={channelUrl} className="text-blue-500 hover:underline">
+              {channelUrl.replace("https://www.youtube.com/", "")}
+            </a>
+            ...
           </p>
         </div>
       )}
