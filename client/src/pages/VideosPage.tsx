@@ -46,6 +46,7 @@ const VideosPage: React.FC = () => {
         <Card
           title=""
           description=""
+          keyword=""
           color="bg-gray-100"
           children={<KeywordField onSubmit={handleKeywordSubmit} />}
         />
@@ -69,7 +70,8 @@ const VideosPage: React.FC = () => {
                   </a>
                 }
                 description={`${cue.cueString}` || "Caption not found"}
-                imageUrl={`https://img.youtube.com/vi/${cue.videoId}/0.jpg`}
+                keyword={keyword}
+                thumbnailUrl={`https://img.youtube.com/vi/${cue.videoId}/0.jpg`}
                 color="bg-gray-100"
               />
             </div>
