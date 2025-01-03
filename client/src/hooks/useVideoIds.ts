@@ -10,6 +10,7 @@ type transcriptElement = {
 
 type VideoObject = {
   videoId: string;
+  title: string;
   cueString: string;
   timeStamp: number;
 };
@@ -35,7 +36,7 @@ const useVideoIds = () => {
   );
 
   // Fetchs the title of a specific YouTube video
-  const fetchTitle = async (videoId: string): Promise<string> => {
+  const fetchTitle = useCallback(async (videoId: string): Promise<string> => {
     try {
       const response = await fetch(
         `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
@@ -46,7 +47,7 @@ const useVideoIds = () => {
       console.error(`ERROR FETCHING TITLE FOR: ${videoId}:`, error);
       return "Title not found";
     }
-  };
+  }, []);
 
   // Fetches the transcript of a specific YouTube video
   const fetchTranscript = useCallback(
@@ -93,10 +94,15 @@ const useVideoIds = () => {
       const transcriptCues: VideoObject[] = [];
 
       for (const videoId of videoIds) {
-        const transcript = await fetchTranscript(videoId);
+        const [title, transcript] = await Promise.all([
+          fetchTitle(videoId),
+          fetchTranscript(videoId),
+        ]);
+
         transcript.forEach((item) => {
           transcriptCues.push({
             videoId,
+            title,
             cueString: item.text,
             timeStamp: item.offset,
           });

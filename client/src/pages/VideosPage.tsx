@@ -12,9 +12,8 @@ const VideosPage: React.FC = () => {
 
   const [transcriptCues, setTranscriptCues] = useState<VideoObject[]>([]);
   const [filteredCues, setFilteredCues] = useState<VideoObject[]>([]);
-  const [videoTitles, setVideoTitles] = useState<Record<string, string>>({});
 
-  const { fetchTitle, fetchTranscriptCues, filterCues } = useVideoIds();
+  const { fetchTranscriptCues, filterCues } = useVideoIds();
 
   // Keyword data
   const [keyword, setKeyword] = useState("");
@@ -34,20 +33,6 @@ const VideosPage: React.FC = () => {
     if (keyword) {
       const filteredResults = filterCues(transcriptCues, keyword);
       setFilteredCues(filteredResults);
-
-      // Fetch titles for the filtered videos
-      const fetchTitles = async () => {
-        const descriptions: Record<string, string> = {};
-        await Promise.all(
-          filteredResults.map(async (cue) => {
-            const title = await fetchTitle(cue.videoId);
-            descriptions[cue.videoId] = title;
-          })
-        );
-        setVideoTitles(descriptions);
-      };
-
-      fetchTitles();
     }
   }, [keyword]);
 
@@ -80,7 +65,7 @@ const VideosPage: React.FC = () => {
                     target="_blank"
                     className="text-blue-500 hover:underline"
                   >
-                    {videoTitles[cue.videoId] || "Loading title..."}
+                    {cue.title || "Loading title..."}
                   </a>
                 }
                 description={`${cue.cueString}` || "Caption not found"}
